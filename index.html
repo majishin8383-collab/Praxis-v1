@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Praxis v1</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Praxis v1 — simple daily check-in + plan builder" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">P</div>
+      <div>
+        <div class="title">Praxis</div>
+        <div class="subtitle">v1 • Daily check-in + plan</div>
+      </div>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab is-active" data-tab="checkin" role="tab" aria-selected="true">Check-in</button>
+      <button class="tab" data-tab="plan" role="tab" aria-selected="false">Today Plan</button>
+      <button class="tab" data-tab="history" role="tab" aria-selected="false">History</button>
+      <button class="tab" data-tab="settings" role="tab" aria-selected="false">Data</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel is-active" id="tab-checkin" role="tabpanel" aria-label="Check-in">
+      <h1>Check in</h1>
+      <p class="muted">Name the moment. Save it. Build from it.</p>
+
+      <div class="card">
+        <label class="field">
+          <span>How are you feeling right now? (0–10)</span>
+          <input id="mood" type="number" inputmode="numeric" min="0" max="10" placeholder="e.g., 6" />
+        </label>
+
+        <label class="field">
+          <span>What’s going on? (short notes)</span>
+          <textarea id="notes" rows="4" placeholder="What are you feeling, thinking, dealing with?"></textarea>
+        </label>
+
+        <div class="row">
+          <button id="saveCheckin" class="btn primary">Save check-in</button>
+          <button id="quickPlan" class="btn">Generate today plan from this</button>
+        </div>
+
+        <div id="checkinMsg" class="msg" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-plan" role="tabpanel" aria-label="Today Plan">
+      <h1>Today plan</h1>
+      <p class="muted">Three priorities. One smallest next step. Keep it realistic.</p>
+
+      <div class="card">
+        <label class="field">
+          <span>Theme (optional)</span>
+          <input id="theme" type="text" placeholder="e.g., Stability, Momentum, Repair, Focus" />
+        </label>
+
+        <label class="field">
+          <span>Priority 1</span>
+          <input id="p1" type="text" placeholder="One thing that matters today" />
+        </label>
+        <label class="field">
+          <span>Priority 2</span>
+          <input id="p2" type="text" placeholder="Second priority" />
+        </label>
+        <label class="field">
+          <span>Priority 3</span>
+          <input id="p3" type="text" placeholder="Third priority" />
+        </label>
+
+        <label class="field">
+          <span>Smallest next step (2–10 minutes)</span>
+          <input id="step" type="text" placeholder="Make it tiny and specific" />
+        </label>
+
+        <label class="field">
+          <span>Time box (minutes)</span>
+          <input id="timebox" type="number" inputmode="numeric" min="5" max="180" placeholder="e.g., 25" />
+        </label>
+
+        <div class="row">
+          <button id="savePlan" class="btn primary">Save today plan</button>
+          <button id="clearPlan" class="btn">Clear</button>
+        </div>
+
+        <div id="planMsg" class="msg" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h2>Simple completion ritual</h2>
+        <ol class="list">
+          <li>Set a timer for your time box.</li>
+          <li>Do only the smallest next step first.</li>
+          <li>When done: write a 1-sentence win and save a check-in.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-history" role="tabpanel" aria-label="History">
+      <h1>History</h1>
+      <p class="muted">Everything you save stays on your device (localStorage).</p>
+
+      <div class="card">
+        <div class="row">
+          <button id="refreshHistory" class="btn">Refresh</button>
+          <button id="wipeAll" class="btn danger">Delete all data</button>
+        </div>
+        <div id="history" class="history"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-settings" role="tabpanel" aria-label="Data">
+      <h1>Data</h1>
+      <p class="muted">Export/import your data so you never lose it.</p>
+
+      <div class="card">
+        <div class="row">
+          <button id="exportBtn" class="btn primary">Export JSON</button>
+          <label class="btn file">
+            Import JSON
+            <input id="importFile" type="file" accept="application/json" />
+          </label>
+        </div>
+
+        <p class="muted small">Tip: export regularly before big changes.</p>
+        <div id="dataMsg" class="msg" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h2>What’s next after v1</h2>
+        <ul class="list">
+          <li>Add guided “modes” (Therapeutic / Coach / Observer)</li>
+          <li>Add streaks + reminders</li>
+          <li>Add freemium gates (locked advanced modes)</li>
+          <li>Add account sync (later)</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Praxis • v1</span>
+    <span class="muted">Private by default. Stored locally.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
